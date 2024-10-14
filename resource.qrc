@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/"/>
+    <qresource prefix="/new/prefix1">
+        <file>ui_icon/b_d.png</file>
+        <file>ui_icon/b_l.png</file>
+        <file>ui_icon/b_r.png</file>
+        <file>ui_icon/b_u.png</file>
+        <file>ui_icon/w_d.png</file>
+        <file>ui_icon/w_l.png</file>
+        <file>ui_icon/w_r.png</file>
+        <file>ui_icon/w_u.png</file>
+    </qresource>
+</RCC>
