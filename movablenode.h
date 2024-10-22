@@ -22,13 +22,16 @@ public:
     void changeNodeColor();
     QPointF getNodePosition();
     void setNodePosition(QPointF pos);
+
 public slots:
     void move();
     void Rx(std::shared_ptr<QByteArray> sharedByteArr, const MovableNode& n, int senderId);
     void Tx(const MovableNode& tx, int rxId, std::shared_ptr<QByteArray> sharedByteArr);
+    void setCellsPerSide(int cellsPerSide);
 
 
 
+    void setGridSize(int grdSize);
 private:
     Ui::MovableNode *ui;
     QPointF direction;
@@ -47,6 +50,12 @@ private:
     const int c_time = 1000;
     const int rate = 50; //bits
     bool isRecieving = false;
+    int _grdSizeKm=20;
+    int _cellsPerSide=10;
+    double minX = 0;
+    double maxX = 200;
+    double minY = 0;
+    double maxY = 200;
 private slots:
     void setUp(bool newUp);
 

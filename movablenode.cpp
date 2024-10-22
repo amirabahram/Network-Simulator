@@ -72,9 +72,9 @@ void MovableNode::move()
 
     //qDebug()<<Q_FUNC_INFO <<direction.x()*speedPixelsPerSecond<<direction.y()*speedPixelsPerSecond;
     //moveBy(direction.x()*speedPixelsPerSecond,direction.y()*speedPixelsPerSecond);
-    // if(QGraphicsEllipseItem::pos().x() < 0 || QGraphicsEllipseItem::pos().x()>10000||QGraphicsEllipseItem::pos().y()<0||QGraphicsEllipseItem::pos().y()>10000){
-    //     direction = -direction;
-    // }
+    if(QGraphicsEllipseItem::pos().x() < minX || QGraphicsEllipseItem::pos().x()>maxX||QGraphicsEllipseItem::pos().y()<minY||QGraphicsEllipseItem::pos().y()>maxY){
+        direction = -direction;
+    }
 }
 
 void MovableNode::Rx(std::shared_ptr<QByteArray> ch,const MovableNode& n,int senderId)
@@ -115,6 +115,18 @@ void MovableNode::Tx(const MovableNode &tx, int rxId,std::shared_ptr<QByteArray>
 
 }
 
+void MovableNode::setCellsPerSide(int cellsPerSide)
+{
+    _cellsPerSide = cellsPerSide;
+    maxX = _cellsPerSide * _grdSizeKm;
+    maxY = _cellsPerSide * _grdSizeKm;
+}
+void MovableNode::setGridSize(int grdSize)
+{
+    _grdSizeKm = grdSize;
+    maxX = _cellsPerSide * _grdSizeKm;
+    maxY = _cellsPerSide * _grdSizeKm;
+}
 void MovableNode::changeNodeColor()
 {
     setBrush(Qt::blue);

@@ -165,6 +165,8 @@ void MainWindow::setNodes(int num)
         connect(node,&MovableNode::txData,link,&Link::TransferData);
         connect(link,&Link::sendDataToNode,node,&MovableNode::Rx);
         connect(this,&MainWindow::setNodeToSendCommand,node,&MovableNode::Tx);
+        connect(ui->sp_pixelLength,SIGNAL(valueChanged(int)),node,SLOT(setCellsPerSide(int)));
+        connect(ui->sp_zoneSize,SIGNAL(valueChanged(int)),node,SLOT(setGridSize(int)));
 
     }
     ui->widget->setLayout(contentLayout);
