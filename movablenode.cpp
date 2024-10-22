@@ -10,10 +10,10 @@ MovableNode::MovableNode(QWidget *parent)
 {
     ui->setupUi(this);
 
-    setRect(-5,-5,20,20);
-    setBrush(Qt::blue);  //QBrush(QColor(212,175,55))
-    int random_x =  s_mainNodeX+ (rand() % nodeOffSet);
-    int random_y =  s_mainNodeY+ (rand() % nodeOffSet);
+    setRect(0,0,0.1,0.1);
+    setBrush(Qt::red);
+    int random_x =  s_mainNodePos.x()+ (rand() % nodeOffSet);
+    int random_y =  s_mainNodePos.y()+ (rand() % nodeOffSet);
     setPos(random_x,random_y);
     direction = QPointF(0,0);
     QGraphicsEllipseItem::setVisible(true);
@@ -69,6 +69,7 @@ void MovableNode::move()
         qDebug()<<"LeftRight";
     }
     setPos(QGraphicsEllipseItem::pos()+direction*speedPixelsPerSecond);
+
     //qDebug()<<Q_FUNC_INFO <<direction.x()*speedPixelsPerSecond<<direction.y()*speedPixelsPerSecond;
     //moveBy(direction.x()*speedPixelsPerSecond,direction.y()*speedPixelsPerSecond);
     // if(QGraphicsEllipseItem::pos().x() < 0 || QGraphicsEllipseItem::pos().x()>10000||QGraphicsEllipseItem::pos().y()<0||QGraphicsEllipseItem::pos().y()>10000){
@@ -116,7 +117,18 @@ void MovableNode::Tx(const MovableNode &tx, int rxId,std::shared_ptr<QByteArray>
 
 void MovableNode::changeNodeColor()
 {
-setBrush(Qt::red);
+    setBrush(Qt::blue);
+}
+
+QPointF MovableNode::getNodePosition()
+{
+    return QGraphicsEllipseItem::pos();
+
+}
+
+void MovableNode::setNodePosition(QPointF pos)
+{
+    QGraphicsItem::setPos(pos.x(),pos.y());
 }
 
 void MovableNode::setSpeed(int v)

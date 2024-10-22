@@ -35,11 +35,108 @@
       <height>500</height>
      </size>
     </property>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>430</y>
+       <width>256</width>
+       <height>101</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="geometry">
+      <rect>
+       <x>39</x>
+       <y>29</y>
+       <width>331</width>
+       <height>261</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="page">
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>241</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Selected Zone Size(km*km):</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="sp_zoneSize">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>101</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <number>10000</number>
+       </property>
+       <property name="value">
+        <number>20</number>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_Apply">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>100</width>
+         <height>33</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Apply</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>181</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Cells Per Side:</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="sp_pixelLength">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>101</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>10</number>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_2"/>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>420</x>
       <y>10</y>
       <width>231</width>
       <height>271</height>
@@ -51,50 +148,14 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>181</width>
+       <x>0</x>
+       <y>30</y>
+       <width>241</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
       <string>Ground Station Coordinates:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>-10</x>
-       <y>170</y>
-       <width>141</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Cell Number(N*N):</string>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="sp_X">
-     <property name="geometry">
-      <rect>
-       <x>53</x>
-       <y>40</y>
-       <width>61</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <number>1000000</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="pb_nodeNum">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>101</width>
-       <height>28</height>
-      </rect>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
@@ -114,29 +175,29 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>40</y>
-       <width>56</width>
+       <y>80</y>
+       <width>91</width>
        <height>19</height>
       </rect>
      </property>
      <property name="text">
-      <string>X:</string>
+      <string>Latitude:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
-       <width>78</width>
+       <y>120</y>
+       <width>111</width>
        <height>19</height>
       </rect>
      </property>
      <property name="text">
-      <string>Node Count:</string>
+      <string>Longtiude:</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="sp_cell">
+    <widget class="QSpinBox" name="pb_NodesCount">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -145,37 +206,57 @@
        <height>28</height>
       </rect>
      </property>
-     <property name="maximum">
-      <number>10000</number>
-     </property>
-     <property name="value">
-      <number>20</number>
-     </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
-       <width>56</width>
+       <y>170</y>
+       <width>181</width>
        <height>19</height>
       </rect>
      </property>
      <property name="text">
-      <string>Y:</string>
+      <string>Nodes Count:</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="sp_Y">
+    <widget class="QDoubleSpinBox" name="sp_Lat">
      <property name="geometry">
       <rect>
-       <x>53</x>
+       <x>110</x>
        <y>70</y>
-       <width>61</width>
-       <height>28</height>
+       <width>77</width>
+       <height>33</height>
       </rect>
      </property>
-     <property name="maximum">
-      <number>1000000</number>
+     <property name="value">
+      <double>35.689999999999998</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sp_Long">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>77</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="value">
+      <double>51.380000000000003</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_mapGrdView">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>230</y>
+       <width>121</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MapGridView</string>
      </property>
     </widget>
    </widget>
@@ -279,6 +360,32 @@
       <string>Send</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pb_Mapdata">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>40</y>
+      <width>100</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_connect">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>110</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect Server</string>
+    </property>
    </widget>
   </widget>
  </widget>

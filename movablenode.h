@@ -17,11 +17,11 @@ public:
     explicit MovableNode(QWidget *parent =nullptr);
     ~MovableNode();
     QWidget* getWidget();
-void setNodeId(int newNodeId);
-    static int s_mainNodeX;
-    static int s_mainNodeY;
+    void setNodeId(int newNodeId);
+    static QPointF s_mainNodePos;
     void changeNodeColor();
-
+    QPointF getNodePosition();
+    void setNodePosition(QPointF pos);
 public slots:
     void move();
     void Rx(std::shared_ptr<QByteArray> sharedByteArr, const MovableNode& n, int senderId);
@@ -41,7 +41,7 @@ private:
     bool down = false;
     bool left = true;
     bool right = false;
-    int nodeOffSet = 100;
+    int nodeOffSet = 5;
     QByteArray buff;
     QTimer* timer;
     const int c_time = 1000;

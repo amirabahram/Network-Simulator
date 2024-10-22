@@ -13,16 +13,15 @@ class GridGraphic : public QGraphicsView
     Q_OBJECT
 
 public:
-    explicit GridGraphic(QWidget *parent = nullptr,int cellNumber=20);
+    explicit GridGraphic(QWidget *parent = nullptr,int numCellsX=20);
     ~GridGraphic();
-void setNodesForShow(std::unordered_map<int,MovableNode*> nodesMap);
-
+    void setNodesForShow(std::unordered_map<int,MovableNode*> nodesMap);
+    QPointF getCenterPoint();
 public slots:
 
 private:
     Ui::GridGraphic *ui;
     QGraphicsScene* scene=nullptr;
-    int cellNumber = 20;
 
 };
 
