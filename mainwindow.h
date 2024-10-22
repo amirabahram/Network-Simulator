@@ -71,8 +71,8 @@ private:
     void calculateGridBoundaries();
     int _grdSizeKm=20;
     int _cellsPerSide=10;
-    double _mainLongitude = 51.3890;
-    double _mainLatitude = 35.6892;
+    double _mainLongitude = 51.40434;
+    double _mainLatitude = 35.715298;
 private slots:
     void showGrid();
     void setNodes(int num);

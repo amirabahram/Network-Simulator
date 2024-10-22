@@ -75,7 +75,7 @@ MapGrid::~MapGrid()
     delete ui;
 }
 
-std::pair<double, double> MapGrid::getLongitudeLatitude(QGraphicsEllipseItem *marker, double centerLat, double centerLon, double cellSizeKm, int cellsPerSide)
+QPointF MapGrid::getLongitudeLatitude(QGraphicsEllipseItem *marker, double centerLat, double centerLon, double cellSizeKm, int cellsPerSide)
 {
     QPointF pos = marker->scenePos();
 
@@ -99,7 +99,7 @@ std::pair<double, double> MapGrid::getLongitudeLatitude(QGraphicsEllipseItem *ma
     double newLat = centerLat + deltaLat;
     double newLon = centerLon + deltaLon;
 
-    return std::make_pair(newLat, newLon);
+    return QPointF(newLat, newLon);
 }
 void MapGrid::setNodesForShow(std::unordered_map<int, MovableNode *> nodesMap)
 {

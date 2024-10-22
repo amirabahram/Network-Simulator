@@ -94,15 +94,19 @@ void MainWindow::gridViewConnectionSetup()
 
 void MainWindow::sendNodesDataToSocket()
 {
+    if(!grrd){
+        qDebug() << "not set a grid yet!";
+        return;
+    }
     QPointF p;
     QByteArray data;
     QDataStream stream(&data,QIODevice::WriteOnly);
     stream <<static_cast<quint32>(nodesMap.size());
     for(auto i : nodesMap){
-        p= i.second->getNodePosition();
-        QPair<qreal, qreal> geoCoordinates = mapToGeoCoordinates(p.x(), p.y());
-        stream <<geoCoordinates.first;
-        stream << geoCoordinates.second;
+        QGraphicsEllipseItem* item = dynamic_cast<QGraphicsEllipseItem*>(i.second);
+        p=grrd->getLongitudeLatitude(item,centerLat,centerLon,_grdSizeKm,_cellsPerSide);
+        stream <<p.x();
+        stream << p.y();
 
     }
     emit sendDatatoSocket(data);
@@ -181,8 +185,6 @@ void MainWindow::setupGrndStation()
     node->setNodePosition(mainPoint);
     node->changeNodeColor();
     qDebug() << "main node created";
-    //////////test
-    QPointF longLat = pointToGeo(mainPoint);
 
 }
 QPointF MainWindow::mapToGrid(double lon, double lat) {
