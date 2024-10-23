@@ -26,55 +26,73 @@ MovableNode::MovableNode(QWidget *parent)
     connect(ui->pb_down,&QPushButton::toggled,this,&MovableNode::setDown);
     connect(ui->pb_left,&QPushButton::toggled,this,&MovableNode::setLeft);
     connect(ui->pb_right,&QPushButton::toggled,this,&MovableNode::setRight);
+    //connect(ui->cb_Limit,&QCheckBox::toggled,this,&MovableNode::setLimit);
     timer = new QTimer();
 }
 
 void MovableNode::move()
 {
-    if(!up && !down && !left && !right ){
+    if (!up && !down && !left && !right) {
         return;
     }
-    if(up){
+
+    if (up) {
         direction.setY(-1);
     }
-    if(down){
+    if (down) {
         direction.setY(1);
     }
-    if(up && down){
+    if (up && down) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<>dist(0,1);
+        std::uniform_int_distribution<> dist(0, 1);
         int random_num = dist(gen);
-        direction.setY(-1);
-        if(random_num){
-            direction.setY(1);
-        }
-        qDebug()<<"UpandDown";
+        direction.setY(random_num ? 1 : -1);
     }
-    if(left){
+    if (left) {
         direction.setX(-1);
     }
-    if(right){
+    if (right) {
         direction.setX(1);
     }
-    if(left && right){
+    if (left && right) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<>dist(0,1);
+        std::uniform_int_distribution<> dist(0, 1);
         int random_num = dist(gen);
-        direction.setX(-1);
-        if(random_num){
-            direction.setX(1);
-        }
-        qDebug()<<"LeftRight";
+        direction.setX(random_num ? 1 : -1);
     }
-    setPos(QGraphicsEllipseItem::pos()+direction*speedPixelsPerSecond);
 
-    //qDebug()<<Q_FUNC_INFO <<direction.x()*speedPixelsPerSecond<<direction.y()*speedPixelsPerSecond;
-    //moveBy(direction.x()*speedPixelsPerSecond,direction.y()*speedPixelsPerSecond);
-    if(QGraphicsEllipseItem::pos().x() < minX || QGraphicsEllipseItem::pos().x()>maxX||QGraphicsEllipseItem::pos().y()<minY||QGraphicsEllipseItem::pos().y()>maxY){
-        direction = -direction;
+    QPointF newPos = QGraphicsEllipseItem::pos() + direction * speedPixelsPerSecond;
+
+    // Check if the new position exceeds the boundaries and correct it
+    if (newPos.x() < minX) {
+        newPos.setX(minX);  // Fix position at the boundary
+        direction.setX(1);  // Reverse X direction
     }
+    if (newPos.x() > maxX) {
+        newPos.setX(maxX);  // Fix position at the boundary
+        direction.setX(-1); // Reverse X direction
+    }
+    if (newPos.y() < minY) {
+        newPos.setY(minY);  // Fix position at the boundary
+        direction.setY(1);  // Reverse Y direction
+    }
+    if (newPos.y() > maxY) {
+        newPos.setY(maxY);  // Fix position at the boundary
+        direction.setY(-1); // Reverse Y direction
+    }
+
+    // Ensure movement continues after reaching boundaries
+    if (direction.x() == 0 && direction.y() == 0) {
+        // In case the direction resets to (0, 0), restore default movement
+        direction.setX(1);
+        direction.setY(1);
+    }
+
+    // Set the new position after ensuring it's within bounds
+    setPos(newPos);
+    qDebug()<<"x:"<<newPos.x()<<"y:"<<newPos.y();
 }
 
 void MovableNode::Rx(std::shared_ptr<QByteArray> ch,const MovableNode& n,int senderId)
@@ -105,7 +123,12 @@ void MovableNode::plotData()
     if(!buff.size()){
     disconnect(timer,&QTimer::timeout,this,&MovableNode::plotData);
     isRecieving = false;
+    }
 }
+
+void MovableNode::setLimit(bool b)
+{
+    _isLimited = b;
 }
 void MovableNode::Tx(const MovableNode &tx, int rxId,std::shared_ptr<QByteArray> data)
 {
@@ -115,13 +138,13 @@ void MovableNode::Tx(const MovableNode &tx, int rxId,std::shared_ptr<QByteArray>
 
 }
 
-void MovableNode::setCellsPerSide(int cellsPerSide)
+void MovableNode::setCellsPerSideNode(int cellsPerSide)
 {
     _cellsPerSide = cellsPerSide;
     maxX = _cellsPerSide * _grdSizeKm;
     maxY = _cellsPerSide * _grdSizeKm;
 }
-void MovableNode::setGridSize(int grdSize)
+void MovableNode::setGridSizeNode(int grdSize)
 {
     _grdSizeKm = grdSize;
     maxX = _cellsPerSide * _grdSizeKm;

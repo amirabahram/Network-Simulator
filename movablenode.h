@@ -27,11 +27,11 @@ public slots:
     void move();
     void Rx(std::shared_ptr<QByteArray> sharedByteArr, const MovableNode& n, int senderId);
     void Tx(const MovableNode& tx, int rxId, std::shared_ptr<QByteArray> sharedByteArr);
-    void setCellsPerSide(int cellsPerSide);
+    void setCellsPerSideNode(int cellsPerSide);
 
 
 
-    void setGridSize(int grdSize);
+    void setGridSizeNode(int grdSize);
 private:
     Ui::MovableNode *ui;
     QPointF direction;
@@ -53,9 +53,10 @@ private:
     int _grdSizeKm=20;
     int _cellsPerSide=10;
     double minX = 0;
-    double maxX = 200;
+    double maxX = 20;
     double minY = 0;
-    double maxY = 200;
+    double maxY = 20;
+    bool _isLimited = false;
 private slots:
     void setUp(bool newUp);
 
@@ -66,6 +67,7 @@ private slots:
     void setRight(bool newRight);
     void setSpeed(int v);
     void plotData();
+    void setLimit(bool b);
 signals:
     void txData(std::shared_ptr<QByteArray> sharedByteArr,int rxId,int txId);
 };

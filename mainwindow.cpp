@@ -16,10 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     link = new Link();
     tcp = new Client();
+    _timer = new QTimer();
     connect(tcp,&Client::messageToShow,this,&MainWindow::messegeHandler);
     connect(ui->pushButton,&QPushButton::clicked,this,&MainWindow::showGrid);
     connect(ui->pb_NodesCount,SIGNAL(valueChanged(int)),this,SLOT(setNodes(int)));
-    connect(ui->pb_send,&QPushButton::clicked,this,&MainWindow::sendDataHandler);
+    connect(ui->pb_sendTxRx,&QPushButton::clicked,this,&MainWindow::sendDataHandler);
     //connect(ui->pb_setupGnd,&QPushButton::clicked,this,&MainWindow::setupGrndStation);
     connect(this,&MainWindow::sendDatatoSocket,tcp,&Client::writeDataToSocket);
     connect(ui->pb_Mapdata,&QPushButton::clicked,this,&MainWindow::sendNodesDataToSocket);
@@ -29,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->sp_zoneSize,SIGNAL(valueChanged(int)),this,SLOT(setGrdSizeKm(int)));
     connect(ui->sp_Lat,SIGNAL(valueChanged(double)),this,SLOT(setMainLatitude(double)));
     connect(ui->sp_Long,SIGNAL(valueChanged(double)),this,SLOT(setMainLongitude(double)));
+    connect(_timer,&QTimer::timeout,this,&MainWindow::sendNodesDataToSocket);
+    _timer->start(1000);
     calculateGridBoundaries();
 
 }
@@ -165,8 +168,12 @@ void MainWindow::setNodes(int num)
         connect(node,&MovableNode::txData,link,&Link::TransferData);
         connect(link,&Link::sendDataToNode,node,&MovableNode::Rx);
         connect(this,&MainWindow::setNodeToSendCommand,node,&MovableNode::Tx);
-        connect(ui->sp_pixelLength,SIGNAL(valueChanged(int)),node,SLOT(setCellsPerSide(int)));
+        connect(this,&MainWindow::setNodeCellPerSide,node,&MovableNode::setCellsPerSideNode);
+        connect(this,&MainWindow::setNodeGridSize,node,&MovableNode::setGridSizeNode);
         connect(ui->sp_zoneSize,SIGNAL(valueChanged(int)),node,SLOT(setGridSize(int)));
+        emit setNodeCellPerSide(ui->sp_pixelLength->value());
+        emit setNodeGridSize(ui->sp_zoneSize->value());
+
 
     }
     ui->widget->setLayout(contentLayout);

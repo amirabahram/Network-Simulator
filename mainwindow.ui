@@ -101,7 +101,7 @@
       <string>Data:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pb_send">
+    <widget class="QPushButton" name="pb_sendTxRx">
      <property name="geometry">
       <rect>
        <x>140</x>

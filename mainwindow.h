@@ -73,6 +73,7 @@ private:
     int _cellsPerSide=10;
     double _mainLongitude = 51.40434;
     double _mainLatitude = 35.715298;
+    QTimer* _timer;
 private slots:
     void showGrid();
     void setNodes(int num);
@@ -88,6 +89,8 @@ private slots:
 signals:
     void setNodeToSendCommand(const MovableNode& tx,int rxId,std::shared_ptr<QByteArray> sharedByteArr);
     void sendDatatoSocket(const QByteArray& a);
+    void setNodeGridSize(int s);
+    void setNodeCellPerSide(int c);
 
 };
 #endif // MAINWINDOW_H
